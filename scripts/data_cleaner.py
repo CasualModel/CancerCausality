@@ -35,76 +35,8 @@ class DataCleaner:
         self.df.drop(columns, axis=1, inplace=True)
         return self.df
 
-    def separate_date_time_column(self, column: str, col_prefix_name: str) -> pd.DataFrame:
-        """
-        Returns a DataFrame where the specified columns is split to date and time new columns adding a prefix string to both
-        Parameters
-        ----------
-        column:
-            Type: str
-        col_prefix_name:
-            Type: str
-
-        Returns
-        -------
-        pd.DataFrame
-        """
-        try:
-
-            self.df[f'{col_prefix_name}Date'] = pd.to_datetime(
-                self.df[column]).dt.date
-            self.df[f'{col_prefix_name}Time'] = pd.to_datetime(
-                self.df[column]).dt.time
-
-            return self.df
-
-        except:
-            print("Failed to separate the date-time column")
-
-    def separate_date_column(self, date_column: str, drop_date=True) -> pd.DataFrame:
-        try:
-            date_index = self.df.columns.get_loc(date_column)
-            self.df.insert(date_index + 1, 'Year', self.df[date_column].apply(
-                lambda x: x.date().year))
-            self.df.insert(date_index + 2, 'Month', self.df[date_column].apply(
-                lambda x: x.date().month))
-            self.df.insert(date_index + 3, 'Day',
-                           self.df[date_column].apply(lambda x: x.date().day))
-
-            if(drop_date):
-                self.df = self.df.drop(date_column, axis=1)
-
-        except:
-            print("Failed to separate the date to its components")
-
-    def change_column_to_date_type(self, col_name: str) -> None:
-        try:
-            self.df[col_name] = pd.to_datetime(self.df[col_name])
-        except:
-            print('failed to change column to Date Type')
-
     def remove_nulls(self) -> pd.DataFrame:
         return self.df.dropna()
-
-    def add_season_col(self, month_col: str) -> None:
-        # helper function
-        def get_season(month: int):
-            if(month <= 2 or month == 12):
-                return 'Winter'
-            elif(month > 2 and month <= 5):
-                return 'Spring'
-            elif(month > 5 and month <= 8):
-                return 'Summer'
-            else:
-                return 'Autumn'
-
-        try:
-            month_index = self.df.columns.get_loc(month_col)
-            self.df.insert(month_index + 1, 'Season',
-                           self.df[month_col].apply(get_season))
-
-        except:
-            print("Failed to add season column")
 
     def change_columns_type_to(self, cols: list, data_type: str) -> pd.DataFrame:
         """
@@ -231,56 +163,6 @@ class DataCleaner:
             else:
                 self.df[col].fillna(method='bfill', inplace=True)
                 self.df[col].fillna(method='ffill', inplace=True)
-
-        return self.df
-
-    def create_new_columns_from(self, new_col_name: str, col1: str, col2: str, func) -> pd.DataFrame:
-        """
-        Returns a DataFrame where a new column is created using a function on two specified columns
-        Parameters
-        ----------
-        new_col_name:
-            Type: str
-        col1:
-            Type: str
-        col2:
-            Type: str
-        func:
-            Type: function
-
-        Returns
-        -------
-        pd.DataFrame
-        """
-        try:
-            self.df[new_col_name] = func(self.df[col1], self.df[col2])
-        except:
-            print("failed to create new column with the specified function")
-
-        return self.df
-
-    def convert_bytes_to_megabytes(self, columns: list) -> pd.DataFrame:
-        """
-        Returns a DataFrame where columns value is changed from bytes to megabytes
-
-        Args:
-        -----
-        columns: 
-            Type: list
-
-        Returns:
-        --------
-        pd.DataFrame
-        """
-        try:
-            megabyte = 1*10e+5
-            for col in columns:
-                self.df[col] = self.df[col] / megabyte
-                self.df.rename(
-                    columns={col: f'{col[:-7]}(MegaBytes)'}, inplace=True)
-
-        except:
-            print('failed to change values to megabytes')
 
         return self.df
 

@@ -132,7 +132,7 @@ class DataManipulator:
 
     def standardize_column(self, column: str) -> pd.DataFrame:
         """
-            Returns the objects DataFrames column normalized using Normalizer
+            Returns the objects DataFrames column normalized using StandardScalar
             Parameters
             ----------
             column:
