@@ -38,7 +38,8 @@
 <a name='install'></a> 
 
 ## Installation requirements
->Some of the python packages required to do the project are listed here and for more check the requiremnt.txt file:
+> The python packages required to do the project are listed in the requiremnt.txt file and can be easily installed
+> by running the setup.py Python file.
 
 <a name='hint'></a>
 
@@ -64,3 +65,6 @@
  - http://web.math.ku.dk/~peters/jonas_files/mitTutorialJonas.pdf
  - https://link.springer.com/chapter/10.1007/978-981-15-7205-0_10
  - http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.301.1824&rep=rep1&type=pdf
+
+ ## <a name='license'></a>License
+ [MIT](https://github.com/CasualModel/CancerCausality/blob/main/LICENSE)
