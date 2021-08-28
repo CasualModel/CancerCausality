@@ -1,1 +1,9 @@
 /data.csv
+/out_removed_minmax_scale.csv
+/out_removed_std_scale.csv
+/out_revalued_minmax_scale.csv
+/out_revalued_std_scale.csv
+/out_removed_minmax_scale_norm.csv
+/out_removed_std_scale_norm.csv
+/out_revalued_minmax_scale_norm.csv
+/out_revalued_std_scale_norm.csv

@@ -104,31 +104,31 @@ class DataManipulator:
         except:
             print("Failed to scale the column")
 
-    def normalize_column(self, column: str) -> pd.DataFrame:
+    def normalize_df(self, sep_index: int) -> pd.DataFrame:
         """
             Returns the objects DataFrames column normalized using Normalizer
             Parameters
             ----------
-            column:
-                Type: str
-            length:
-                Type: int
+            None
 
             Returns
             -------
             pd.DataFrame
         """
         try:
-            scale_column_df = pd.DataFrame(self.df[column])
-            scale_column_values = scale_column_df.values
+            unnormal = self.df.iloc[:, :sep_index]
+            normalized = self.df.iloc[:, sep_index:]
+            columns = normalized.columns
             normalizer = Normalizer()
-            normalized_data = normalizer.fit_transform(scale_column_values)
-            self.df[column] = normalized_data
+            normalized_data = normalizer.fit_transform(normalized)
+            normalized_data = pd.DataFrame(normalized_data, columns=columns)
+            self.df = pd.merge(left=unnormal, left_index=True,
+                               right=normalized_data, right_index=True, how='inner')
 
             return self.df
 
         except:
-            print("Failed to normalize the column")
+            print("Failed to normalize the dataframe")
 
     def standardize_column(self, column: str) -> pd.DataFrame:
         """
