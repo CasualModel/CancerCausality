@@ -1,0 +1,4 @@
+outs:
+- md5: 79eb0794035e77e2781ad8964754a24e
+  size: 194733
+  path: out_revalued_minmax_scale.csv
