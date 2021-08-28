@@ -1,0 +1,4 @@
+outs:
+- md5: ea39c9a6ece1fd2630e4ed540a6a2352
+  size: 391055
+  path: out_revalued_std_scale_norm.csv

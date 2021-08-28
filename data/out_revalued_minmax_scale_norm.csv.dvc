@@ -1,0 +1,4 @@
+outs:
+- md5: 3ad19f94b2adba590aaf77ab17ceace1
+  size: 219227
+  path: out_revalued_minmax_scale_norm.csv
