@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from scipy import stats
 
 
 class DataCleaner:
@@ -166,7 +167,19 @@ class DataCleaner:
 
         return self.df
 
-    def fix_outlier(self, column: str) -> pd.DataFrame:
+    def remove_outliers(self) -> pd.DataFrame:
+
+        # calculate z-scores of each column in the dataframe
+        z_scores = stats.zscore(self.df)
+        abs_z_scores = np.abs(z_scores)
+
+        # Identify Outliers
+        filtered_entries = (abs_z_scores < 3).all(axis=1)
+        self.df = self.df[filtered_entries]
+
+        return self.df
+
+    def fix_outliers(self, column: str) -> pd.DataFrame:
         """
         Returns a DataFrame where outlier of the specified column is fixed
         Parameters
